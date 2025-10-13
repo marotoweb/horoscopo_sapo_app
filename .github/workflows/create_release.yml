@@ -1,0 +1,61 @@
+# .github/workflows/create_release.yml
+
+name: Create Android Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Aciona sempre que uma tag que começa com 'v' é criada (ex: v1.0.0)
+
+jobs:
+  build-and-release:
+    name: Build and Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Faz o checkout do código
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configura o Java (necessário para o Gradle)
+      - name: Configurar JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 3️⃣ Configura o Flutter
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.5'
+          channel: 'stable'
+          cache: true
+
+      # 4️⃣ Instala as dependências do projeto
+      - name: Instalar Dependências
+        run: flutter pub get
+
+      # 5️⃣ Verifica o ambiente (opcional, mas útil para debugging)
+      - name: Verificar versão do Flutter e SDKs
+        run: flutter doctor -v
+
+      # 6️⃣ Compila o APK de release
+      - name: Compilar APK de Release
+        run: flutter build apk --release
+
+      # 7️⃣ Renomeia o APK gerado (para ter o nome da tag)
+      - name: Renomear APK
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/horoscopo-sapo-${{ github.ref_name }}.apk
+
+      # 8️⃣ Cria a Release e anexa o APK renomeado
+      - name: Criar Release e Anexar Artefacto
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "build/app/outputs/flutter-apk/horoscopo-sapo-${{ github.ref_name }}.apk"
+          tag: ${{ github.ref_name }}
+          name: "Horóscopo Sapo ${{ github.ref_name }}"
+          draft: false
+          prerelease: false

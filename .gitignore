@@ -1,0 +1,67 @@
+# =============================
+# Miscellaneous
+# =============================
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+pubspec.lock
+
+# =============================
+# IDEs
+# =============================
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# =============================
+# Flutter & Dart
+# =============================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# =============================
+# Platforms
+# =============================
+# Manter estrutura Android mas ignorar artefactos
+/android/app/build/
+/android/.kotlin/
+/android/.gradle/
+local.properties
+*.keystore
+*.jks
+
+# Ignorar plataformas não usadas 
+/ios/
+/web/
+/windows/
+/linux/
+/macos/
+
+# =============================
+# Symbolication & Obfuscation
+# =============================
+app.*.symbols
+app.*.map.json
+
+# =============================
+# Outros
+# =============================
+*.csv
+/tombstones/
+tombstone_*
