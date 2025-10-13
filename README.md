@@ -6,7 +6,7 @@ Esta é a **Versão 2** da aplicação **Horóscopo SAPO**, uma aplicação móv
 
 Esta versão foi completamente reescrita para ser uma aplicação moderna, robusta e eficiente, incorporando funcionalidades avançadas como um sistema de cache, tema claro/escuro e uma interface de utilizador refinada.
 
-![Screenshot da Aplicação](https://github.com/marotoweb/horoscopo_sapo_app/assets/screenshots/screenshot1.png )
+![Screenshot da Aplicação](https://github.com/marotoweb/horoscopo_sapo_app/blob/526369a443958835b7bf019836ab7d658c4c1d68/assets/screenshots/screenshot1.png )
 
 ---
 
