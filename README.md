@@ -1,3 +1,14 @@
+[![GitHub Latest Release][releases_shield]][latest_release]
+[![GitHub All Releases][downloads_total_shield]][releases]
+
+[latest_release]: https://github.com/marotoweb/horoscopo_sapo_app/releases/latest
+
+[releases_shield]: https://img.shields.io/github/release/marotoweb/horoscopo_sapo_app.svg?style=popout
+
+[releases]: https://github.com/marotoweb/horoscopo_sapo_app/releases
+
+[downloads_total_shield]: https://img.shields.io/github/downloads/marotoweb/horoscopo_sapo_app/total
+
 # Horóscopo SAPO (V2)
 
 ## Sobre o Projeto
