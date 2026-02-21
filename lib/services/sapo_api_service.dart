@@ -14,7 +14,7 @@ class SapoApiService {
   Future<Map<String, dynamic>> _extrairJsonDePagina(
     String url, {
     bool ignorarCache = false,
-  } ) async {
+  }) async {
     final prefs = await SharedPreferences.getInstance();
     final chaveCache = 'cache_$url';
     final chaveTimestamp = 'timestamp_$url';
@@ -34,13 +34,18 @@ class SapoApiService {
 
     // Se o cache não existir ou estiver expirado, busca na rede
     final response = await http.get(
-      Uri.parse(url ),
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', },
+      Uri.parse(url),
+      headers: {
+        'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+      },
     );
     if (response.statusCode != 200) {
-      throw Exception('Falha ao carregar a página: ${response.statusCode} URL: $url');
+      throw Exception(
+        'Falha ao carregar a página: ${response.statusCode} URL: $url',
+      );
     }
-    
+
     final document = parser.parse(response.body);
     String dadosJsonString = '';
 
@@ -57,7 +62,9 @@ class SapoApiService {
       }
     }
     if (dadosJsonString.isEmpty) {
-      throw Exception('Objeto JSON de previsões não encontrado no script da página. URL: $url');
+      throw Exception(
+        'Objeto JSON de previsões não encontrado no script da página. URL: $url',
+      );
     }
 
     // Guarda os novos dados e o timestamp no cache
@@ -70,11 +77,17 @@ class SapoApiService {
   // Os métodos públicos agora aceitam um parâmetro para forçar o refresh
   Future<List<Astrologo>> fetchAstrologos({bool forcarRefresh = false}) async {
     final url = '${_baseUrl}maria-helena-martins/virgem';
-    final todosOsDados = await _extrairJsonDePagina(url, ignorarCache: forcarRefresh);
+    final todosOsDados = await _extrairJsonDePagina(
+      url,
+      ignorarCache: forcarRefresh,
+    );
 
     final List<Astrologo> listaAstrologos = [];
     todosOsDados.forEach((key, value) {
-      if (value is Map && value.containsKey('Slug') && value.containsKey('Name') && value.containsKey('Previsoes')) {
+      if (value is Map &&
+          value.containsKey('Slug') &&
+          value.containsKey('Name') &&
+          value.containsKey('Previsoes')) {
         String descLimpa = value['Desc'] ?? 'Sem descrição';
         descLimpa = descLimpa.replaceAll(RegExp(r'<[^>]*>'), '').trim();
         listaAstrologos.add(
@@ -87,7 +100,9 @@ class SapoApiService {
         );
       }
     });
-    if (listaAstrologos.isEmpty) throw Exception('Nenhum astrólogo com previsões foi encontrado.');
+    if (listaAstrologos.isEmpty) {
+      throw Exception('Nenhum astrólogo com previsões foi encontrado.');
+    }
     return listaAstrologos;
   }
 
@@ -98,14 +113,19 @@ class SapoApiService {
     bool forcarRefresh = false,
   }) async {
     final url = '$_baseUrl$astrologoId/$signoId';
-    final todosOsDados = await _extrairJsonDePagina(url, ignorarCache: forcarRefresh);
+    final todosOsDados = await _extrairJsonDePagina(
+      url,
+      ignorarCache: forcarRefresh,
+    );
 
     String? nomeAstrologoEncontrado;
     String? conteudoPrevisao;
     String dataPrevisaoExtraida = '';
 
     final entradaAstrologo = todosOsDados.values.firstWhere(
-      (value) => value is Map && value['Slug']?.toLowerCase() == astrologoId.toLowerCase(),
+      (value) =>
+          value is Map &&
+          value['Slug']?.toLowerCase() == astrologoId.toLowerCase(),
       orElse: () => null,
     );
 
@@ -120,29 +140,48 @@ class SapoApiService {
       if (previsaoDoSigno != null) {
         final periodoNormalizado = periodoId.toLowerCase();
         String periodoFormatado;
-        if (periodoNormalizado == 'diario') {
-          periodoFormatado = 'Diaria';
-        } else {
-          periodoFormatado = periodoNormalizado[0].toUpperCase() + periodoNormalizado.substring(1);
-        }
-        
-        if (previsaoDoSigno.containsKey('Periods') && previsaoDoSigno['Periods'].containsKey(periodoFormatado)) {
+
+        // Mapeamento exato para as chaves que o SAPO usa no JSON
+        const mapaPeriodos = {
+          'diaria': 'Diária',
+          'semanal': 'Semanal',
+          'mensal': 'Mensal',
+          'anual': 'Anual',
+        };
+
+        periodoFormatado =
+            mapaPeriodos[periodoNormalizado] ??
+            (periodoNormalizado[0].toUpperCase() +
+                periodoNormalizado.substring(1));
+
+        if (previsaoDoSigno.containsKey('Periods') &&
+            previsaoDoSigno['Periods'].containsKey(periodoFormatado)) {
           conteudoPrevisao = previsaoDoSigno['Periods'][periodoFormatado];
         }
 
-        if (previsaoDoSigno.containsKey('PeriodsLabels') && previsaoDoSigno['PeriodsLabels'].containsKey(periodoFormatado)) {
-          dataPrevisaoExtraida = previsaoDoSigno['PeriodsLabels'][periodoFormatado];
+        if (previsaoDoSigno.containsKey('PeriodsLabels') &&
+            previsaoDoSigno['PeriodsLabels'].containsKey(periodoFormatado)) {
+          dataPrevisaoExtraida =
+              previsaoDoSigno['PeriodsLabels'][periodoFormatado];
         }
       }
     }
 
     if (conteudoPrevisao == null || conteudoPrevisao.isEmpty) {
-      throw Exception('Previsão não encontrada para a combinação fornecida. URL: $url');
+      throw Exception(
+        'Previsão não encontrada para a combinação fornecida. URL: $url',
+      );
     }
 
     return Previsao(
       signo: signoId,
-      astrologoNome: nomeAstrologoEncontrado ?? astrologoId.replaceAll('-', ' ').split(' ').map((l) => l[0].toUpperCase()+l.substring(1)).join(" "),
+      astrologoNome:
+          nomeAstrologoEncontrado ??
+          astrologoId
+              .replaceAll('-', ' ')
+              .split(' ')
+              .map((l) => l[0].toUpperCase() + l.substring(1))
+              .join(" "),
       astrologoId: astrologoId,
       periodo: periodoId,
       conteudoHtml: conteudoPrevisao,

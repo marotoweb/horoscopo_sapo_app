@@ -35,7 +35,7 @@ class SignoPrevisoesPaginaState extends State<SignoPrevisoesPagina>
         final previsao = await _apiService.fetchPrevisao(
           astrologoId: astrologo.id,
           signoId: widget.signo.id,
-          periodoId: 'diario',
+          periodoId: 'diaria',
         );
         previsoesEncontradas.add(previsao);
       } catch (e) {

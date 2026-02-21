@@ -30,7 +30,7 @@ class DetalheScreenState extends State<DetalheScreen>
   final Map<String, bool> _loadingStatus = {};
   final Map<String, String> _errorStatus = {};
 
-  final List<String> _periodos = ['diario', 'semanal', 'mensal', 'anual'];
+  final List<String> _periodos = ['diaria', 'semanal', 'mensal', 'anual'];
 
   @override
   void initState() {

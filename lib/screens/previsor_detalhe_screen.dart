@@ -32,7 +32,7 @@ class PrevisorDetalheScreenState extends State<PrevisorDetalheScreen> {
   }
 
   Future<Map<String, Previsao>> _fetchAllPrevisoes() async {
-    final periodos = ['diario', 'semanal', 'mensal', 'anual'];
+    final periodos = ['diaria', 'semanal', 'mensal', 'anual'];
     final Map<String, Previsao> previsoesEncontradas = {};
 
     for (final periodo in periodos) {
@@ -91,9 +91,9 @@ class PrevisorDetalheScreenState extends State<PrevisorDetalheScreen> {
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 80.0),
               children: [
                 // Cartão Diário
-                if (previsoes.containsKey('diario')) ...[
+                if (previsoes.containsKey('diaria')) ...[
                   PrevisaoCard(
-                    previsao: previsoes['diario']!,
+                    previsao: previsoes['diaria']!,
                     titulo: 'Previsão Diária',
                     isInicialmenteExpandido: true,
                   ),
