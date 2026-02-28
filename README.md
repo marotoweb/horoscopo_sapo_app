@@ -9,7 +9,12 @@
 
 [downloads_total_shield]: https://img.shields.io/github/downloads/marotoweb/horoscopo_sapo_app/total
 
-# Horóscopo SAPO (V2)
+<h1 align="center">
+  <img src="assets/icon/icon.png" width="200" alt="Horóscopo SAPO (V2)">
+  <br>
+   Horóscopo SAPO (V2)
+</h1>
+
 
 ## Sobre o Projeto
 
@@ -17,8 +22,7 @@ Esta é a **Versão 2** da aplicação **Horóscopo SAPO**, uma aplicação móv
 
 Esta versão foi completamente reescrita para ser uma aplicação moderna, robusta e eficiente, incorporando funcionalidades avançadas como um sistema de cache, tema claro/escuro e uma interface de utilizador refinada.
 
-![Screenshot da Aplicação](https://github.com/marotoweb/horoscopo_sapo_app/blob/526369a443958835b7bf019836ab7d658c4c1d68/assets/screenshots/screenshot1.png )
-
+<img src="https://github.com/marotoweb/horoscopo_sapo_app/blob/526369a443958835b7bf019836ab7d658c4c1d68/assets/screenshots/screenshot1.png" width="400" alt="Horoscopo Sapo">
 ---
 
 ## Funcionalidades Principais
@@ -129,9 +133,15 @@ Em resumo, a licença permite que qualquer pessoa utilize, modifique e distribua
 
 ---
 
+## Sobre
+
+Esta aplicação é uma prova de conceito desenvolvida para fins de estudo. O autor descarta qualquer respondabilidade pelo uso devido ou indevido desta aplicação bem como qualquer dano causado pela capacidade ou incapacidade do utilizador pelo uso da aplicação e revoga qualquer direito sobre a aplicação além da licença MIT. Esta aplicação não possui qualquer afiliação com o portal SAPO. Todos os dados são obtidos através de web scraping de conteúdo público e pertencem aos seus devidos autores. Os horóscopos apresentados são meramente ilustrativos e não devem ser considerados como aconselhamento profissional. O utilizador é responsável por interpretar e utilizar as informações fornecidas de forma crítica. O autor não se responsabiliza por quaisquer consequências resultantes do uso das informações apresentadas nesta aplicação.
+
+---
+
 ## Autor
 
-- **Rob Cc. (marotoweb)** - [GitHub](https://github.com/marotoweb )
+- **Roberto Cc. (marotoweb)** - [GitHub](https://github.com/marotoweb )
 
 *Este README foi atualizado para refletir o estado final da V2 do projeto.*
 
